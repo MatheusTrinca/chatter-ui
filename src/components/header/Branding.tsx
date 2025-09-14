@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import ForumIcon from '@mui/icons-material/Forum';
-import router from '../Routes';
+// import router from '../Routes';
 
 const Branding = () => {
   return (
@@ -10,7 +10,7 @@ const Branding = () => {
         variant="h6"
         noWrap
         component="a"
-        onClick={() => router.navigate('/')}
+        // onClick={() => router.navigate('/')}
         sx={{
           mr: 2,
           display: { xs: 'none', md: 'flex' },
@@ -19,7 +19,7 @@ const Branding = () => {
           letterSpacing: '.3rem',
           color: 'inherit',
           textDecoration: 'none',
-          cursor: 'pointer',
+          // cursor: 'pointer',
         }}
       >
         CHATTER
