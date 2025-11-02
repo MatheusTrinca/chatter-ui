@@ -2,12 +2,22 @@ import List from '@mui/material/List';
 import ChatListItem from './chat-list-item/ChatListItem';
 import { Divider, Stack } from '@mui/material';
 import ChatListHeader from './chat-list-header/ChatListHeader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ChatListAdd from './chat-list-add/ChatListAdd';
 import { useGetChats } from '../../hooks/useGetChats';
+import { usePath } from '../../hooks/usePath';
 
 const ChatList = () => {
   const [chatListAddVisible, setChatListAddVisible] = useState(false);
+  const [selectedChatId, setSelectedChatId] = useState('');
+  const { path } = usePath();
+
+  useEffect(() => {
+    const chatId = path.split('chats/')[1];
+    if (chatId) {
+      setSelectedChatId(chatId);
+    }
+  }, [path]);
 
   const { data } = useGetChats();
 
@@ -34,9 +44,15 @@ const ChatList = () => {
             'scrollbar-width': 'none',
           }}
         >
-          {data?.chats.map(chat => (
-            <ChatListItem key={chat._id} chat={chat} />
-          ))}
+          {data?.chats
+            .map(chat => (
+              <ChatListItem
+                key={chat._id}
+                chat={chat}
+                selected={chat._id === selectedChatId}
+              />
+            ))
+            .reverse()}
         </List>
       </Stack>
     </>
