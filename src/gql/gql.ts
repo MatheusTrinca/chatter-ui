@@ -21,6 +21,7 @@ type Documents = {
     "\n  query Chats {\n    chats {\n      _id\n      name\n      isPrivate\n      userId\n      userIds\n    }\n  }\n": typeof types.ChatsDocument,
     "\n  query Me {\n    me {\n      _id\n      email\n    }\n  }\n": typeof types.MeDocument,
     "\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n": typeof types.GetMessagesDocument,
+    "\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n": typeof types.MessageCreatedDocument,
 };
 const documents: Documents = {
     "\n  mutation CreateChat($createChatInput: CreateChatInput!) {\n    createChat(createChatInput: $createChatInput) {\n      _id\n      name\n      isPrivate\n      userId\n      userIds\n    }\n  }\n": types.CreateChatDocument,
@@ -30,6 +31,7 @@ const documents: Documents = {
     "\n  query Chats {\n    chats {\n      _id\n      name\n      isPrivate\n      userId\n      userIds\n    }\n  }\n": types.ChatsDocument,
     "\n  query Me {\n    me {\n      _id\n      email\n    }\n  }\n": types.MeDocument,
     "\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n": types.GetMessagesDocument,
+    "\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n": types.MessageCreatedDocument,
 };
 
 /**
@@ -74,6 +76,10 @@ export function graphql(source: "\n  query Me {\n    me {\n      _id\n      emai
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
