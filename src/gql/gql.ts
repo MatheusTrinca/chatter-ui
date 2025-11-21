@@ -15,23 +15,23 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  */
 type Documents = {
     "\n  mutation CreateChat($createChatInput: CreateChatInput!) {\n    createChat(createChatInput: $createChatInput) {\n      _id\n      name\n      isPrivate\n      userId\n      userIds\n    }\n  }\n": typeof types.CreateChatDocument,
-    "\n  mutation CreateMessage($createMessageInput: CreateMessageInput!) {\n    createMessage(createMessageInput: $createMessageInput) {\n      _id\n      content\n      createdAt\n    }\n  }\n": typeof types.CreateMessageDocument,
+    "\n  mutation CreateMessage($createMessageInput: CreateMessageInput!) {\n    createMessage(createMessageInput: $createMessageInput) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n": typeof types.CreateMessageDocument,
     "\n  mutation CreateUser($createUserInput: CreateUserInput!) {\n    createUser(createUserInput: $createUserInput) {\n      _id\n      email\n    }\n  }\n": typeof types.CreateUserDocument,
     "\n  query GetChat($_id: String!) {\n    chat(_id: $_id) {\n      _id\n      name\n      isPrivate\n      userId\n      userIds\n    }\n  }\n": typeof types.GetChatDocument,
     "\n  query Chats {\n    chats {\n      _id\n      name\n      isPrivate\n      userId\n      userIds\n    }\n  }\n": typeof types.ChatsDocument,
     "\n  query Me {\n    me {\n      _id\n      email\n    }\n  }\n": typeof types.MeDocument,
-    "\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n": typeof types.GetMessagesDocument,
-    "\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n": typeof types.MessageCreatedDocument,
+    "\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n": typeof types.GetMessagesDocument,
+    "\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n": typeof types.MessageCreatedDocument,
 };
 const documents: Documents = {
     "\n  mutation CreateChat($createChatInput: CreateChatInput!) {\n    createChat(createChatInput: $createChatInput) {\n      _id\n      name\n      isPrivate\n      userId\n      userIds\n    }\n  }\n": types.CreateChatDocument,
-    "\n  mutation CreateMessage($createMessageInput: CreateMessageInput!) {\n    createMessage(createMessageInput: $createMessageInput) {\n      _id\n      content\n      createdAt\n    }\n  }\n": types.CreateMessageDocument,
+    "\n  mutation CreateMessage($createMessageInput: CreateMessageInput!) {\n    createMessage(createMessageInput: $createMessageInput) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n": types.CreateMessageDocument,
     "\n  mutation CreateUser($createUserInput: CreateUserInput!) {\n    createUser(createUserInput: $createUserInput) {\n      _id\n      email\n    }\n  }\n": types.CreateUserDocument,
     "\n  query GetChat($_id: String!) {\n    chat(_id: $_id) {\n      _id\n      name\n      isPrivate\n      userId\n      userIds\n    }\n  }\n": types.GetChatDocument,
     "\n  query Chats {\n    chats {\n      _id\n      name\n      isPrivate\n      userId\n      userIds\n    }\n  }\n": types.ChatsDocument,
     "\n  query Me {\n    me {\n      _id\n      email\n    }\n  }\n": types.MeDocument,
-    "\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n": types.GetMessagesDocument,
-    "\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n": types.MessageCreatedDocument,
+    "\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n": types.GetMessagesDocument,
+    "\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n": types.MessageCreatedDocument,
 };
 
 /**
@@ -55,7 +55,7 @@ export function graphql(source: "\n  mutation CreateChat($createChatInput: Creat
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation CreateMessage($createMessageInput: CreateMessageInput!) {\n    createMessage(createMessageInput: $createMessageInput) {\n      _id\n      content\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  mutation CreateMessage($createMessageInput: CreateMessageInput!) {\n    createMessage(createMessageInput: $createMessageInput) {\n      _id\n      content\n      createdAt\n    }\n  }\n"];
+export function graphql(source: "\n  mutation CreateMessage($createMessageInput: CreateMessageInput!) {\n    createMessage(createMessageInput: $createMessageInput) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n"): (typeof documents)["\n  mutation CreateMessage($createMessageInput: CreateMessageInput!) {\n    createMessage(createMessageInput: $createMessageInput) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -75,11 +75,11 @@ export function graphql(source: "\n  query Me {\n    me {\n      _id\n      emai
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n"];
+export function graphql(source: "\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n"): (typeof documents)["\n  query GetMessages($chatId: String!) {\n    messages(chatId: $chatId) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n    }\n  }\n"];
+export function graphql(source: "\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n"): (typeof documents)["\n  subscription MessageCreated($chatId: String!) {\n    messageCreated(chatId: $chatId) {\n      _id\n      content\n      createdAt\n      chatId\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

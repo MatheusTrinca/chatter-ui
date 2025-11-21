@@ -8,6 +8,7 @@ export const getMessagesDocument = graphql(`
       _id
       content
       createdAt
+      chatId
     }
   }
 `);

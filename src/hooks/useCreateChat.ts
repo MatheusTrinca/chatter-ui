@@ -17,19 +17,19 @@ const createChatDocument = graphql(`
 const useCreateChat = () =>
   useMutation(createChatDocument, {
     update(cache, { data }) {
-      if (!data?.createChat) return;
-
-      const existingChats = cache.readQuery({
-        query: getChatsDocument,
-      });
-
-      if (existingChats?.chats) {
-        cache.writeQuery({
+      if (data?.createChat) {
+        const existingChats = cache.readQuery({
           query: getChatsDocument,
-          data: {
-            chats: [...existingChats.chats, data.createChat],
-          },
         });
+
+        if (existingChats?.chats) {
+          cache.writeQuery({
+            query: getChatsDocument,
+            data: {
+              chats: [...existingChats.chats, data.createChat],
+            },
+          });
+        }
       }
     },
   });
