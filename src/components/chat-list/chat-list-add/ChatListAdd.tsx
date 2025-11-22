@@ -24,7 +24,6 @@ interface ChatListAddProps {
 }
 
 const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
-  const [isPrivate, setIsPrivate] = useState(false);
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [createChat] = useCreateChat();
@@ -32,7 +31,6 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
   const onClose = () => {
     setName('');
     setError('');
-    setIsPrivate(false);
     handleClose();
   };
 
@@ -60,35 +58,15 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Add Chat
           </Typography>
-          <FormGroup>
-            <FormControlLabel
-              style={{ width: 0 }}
-              control={
-                <Switch
-                  defaultChecked={isPrivate}
-                  onChange={e => setIsPrivate(e.target.checked)}
-                  value={isPrivate}
-                />
-              }
-              label="Private"
-            />
-          </FormGroup>
-          {isPrivate ? (
-            <Paper sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' }}>
-              <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search Users" />
-              <IconButton sx={{ p: '10px' }}>
-                <SearchIcon />
-              </IconButton>
-            </Paper>
-          ) : (
-            <TextField
-              label="Name"
-              onChange={e => setName(e.target.value)}
-              value={name}
-              error={!!error}
-              helperText={error}
-            />
-          )}
+
+          <TextField
+            label="Name"
+            onChange={e => setName(e.target.value)}
+            value={name}
+            error={!!error}
+            helperText={error}
+          />
+
           <Button
             variant="outlined"
             onClick={async () => {
@@ -101,7 +79,6 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
                   variables: {
                     createChatInput: {
                       name,
-                      isPrivate,
                     },
                   },
                 });
