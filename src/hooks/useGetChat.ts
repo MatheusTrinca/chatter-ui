@@ -15,6 +15,7 @@ const getChatDocument = graphql(`
         user {
           _id
           email
+          username
         }
       }
     }

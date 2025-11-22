@@ -12,6 +12,7 @@ export const getMessagesDocument = graphql(`
       user {
         _id
         email
+        username
       }
     }
   }

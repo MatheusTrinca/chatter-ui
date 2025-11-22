@@ -14,6 +14,7 @@ export const getChatsDocument = graphql(`
         user {
           _id
           email
+          username
         }
       }
     }

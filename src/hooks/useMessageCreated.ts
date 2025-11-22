@@ -13,6 +13,7 @@ const messageCreatedDocument = graphql(`
       user {
         _id
         email
+        username
       }
     }
   }
