@@ -10,6 +10,10 @@ const messageCreatedDocument = graphql(`
       content
       createdAt
       chatId
+      user {
+        _id
+        email
+      }
     }
   }
 `);

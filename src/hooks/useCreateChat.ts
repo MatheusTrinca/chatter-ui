@@ -7,9 +7,16 @@ const createChatDocument = graphql(`
     createChat(createChatInput: $createChatInput) {
       _id
       name
-      isPrivate
-      userId
-      userIds
+      latestMessage {
+        _id
+        content
+        createdAt
+        chatId
+        user {
+          _id
+          email
+        }
+      }
     }
   }
 `);

@@ -9,6 +9,10 @@ export const getMessagesDocument = graphql(`
       content
       createdAt
       chatId
+      user {
+        _id
+        email
+      }
     }
   }
 `);

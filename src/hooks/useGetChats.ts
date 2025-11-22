@@ -6,9 +6,16 @@ export const getChatsDocument = graphql(`
     chats {
       _id
       name
-      isPrivate
-      userId
-      userIds
+      latestMessage {
+        _id
+        content
+        createdAt
+        chatId
+        user {
+          _id
+          email
+        }
+      }
     }
   }
 `);
