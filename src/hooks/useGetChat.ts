@@ -5,19 +5,7 @@ import type { GetChatQueryVariables } from '../gql/graphql';
 const getChatDocument = graphql(`
   query GetChat($_id: String!) {
     chat(_id: $_id) {
-      _id
-      name
-      latestMessage {
-        _id
-        content
-        createdAt
-        chatId
-        user {
-          _id
-          email
-          username
-        }
-      }
+      ...ChatFragment
     }
   }
 `);

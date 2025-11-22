@@ -5,15 +5,7 @@ import { updateMessages } from '../cache/messages';
 const createMessageDocument = graphql(`
   mutation CreateMessage($createMessageInput: CreateMessageInput!) {
     createMessage(createMessageInput: $createMessageInput) {
-      _id
-      content
-      createdAt
-      chatId
-      user {
-        _id
-        email
-        username
-      }
+      ...MessageFragment
     }
   }
 `);

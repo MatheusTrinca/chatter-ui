@@ -5,19 +5,7 @@ import { getChatsDocument } from './useGetChats';
 const createChatDocument = graphql(`
   mutation CreateChat($createChatInput: CreateChatInput!) {
     createChat(createChatInput: $createChatInput) {
-      _id
-      name
-      latestMessage {
-        _id
-        content
-        createdAt
-        chatId
-        user {
-          _id
-          email
-          username
-        }
-      }
+      ...ChatFragment
     }
   }
 `);

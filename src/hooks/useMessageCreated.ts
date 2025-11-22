@@ -6,15 +6,7 @@ import { updateMessages } from '../cache/messages';
 const messageCreatedDocument = graphql(`
   subscription MessageCreated($chatId: String!) {
     messageCreated(chatId: $chatId) {
-      _id
-      content
-      createdAt
-      chatId
-      user {
-        _id
-        email
-        username
-      }
+      ...MessageFragment
     }
   }
 `);
