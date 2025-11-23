@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { Link as MuiLink } from '@mui/material';
+import { Link as MuiLink, TextField } from '@mui/material';
 import Auth from './Auth';
 import { useCreateUser } from '../../hooks/useCreateUser';
 import { extractErrorMessage } from '../../utils/errors';
@@ -9,6 +9,7 @@ import { UNKNOWN_ERROR_MESSAGE } from '../../constants/errors';
 
 const Signup = () => {
   const [createUser] = useCreateUser();
+  const [username, setUsername] = useState('');
   const [error, setError] = useState<string>();
   const { login } = useLogin();
 
@@ -16,6 +17,17 @@ const Signup = () => {
     <Auth
       submitLabel="Signup"
       error={error}
+      extraFields={[
+        <TextField
+          label="Username"
+          type="text"
+          variant="outlined"
+          onChange={e => setUsername(e.target.value)}
+          value={username}
+          error={!!error}
+          helperText={error}
+        />,
+      ]}
       onSubmit={async ({ email, password }) => {
         setError('');
         try {
@@ -24,6 +36,7 @@ const Signup = () => {
               createUserInput: {
                 email,
                 password,
+                username,
               },
             },
           });

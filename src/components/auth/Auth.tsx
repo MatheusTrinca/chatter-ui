@@ -7,15 +7,24 @@ interface AuthProps {
   submitLabel: string;
   onSubmit: (credentials: { email: string; password: string }) => Promise<void>;
   children?: React.ReactNode;
+  extraFields?: React.ReactNode[];
   error?: string;
 }
 
-const Auth = ({ submitLabel, onSubmit, children, error }: AuthProps) => {
+const Auth = ({
+  submitLabel,
+  onSubmit,
+  children,
+  error,
+  extraFields,
+}: AuthProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { data } = useGetMe();
   const navigate = useNavigate();
+
+  console.log('data', data);
 
   useEffect(() => {
     if (data) {
@@ -33,6 +42,7 @@ const Auth = ({ submitLabel, onSubmit, children, error }: AuthProps) => {
         justifyContent: 'center',
       }}
     >
+      {extraFields}
       <TextField
         label="Email"
         type="email"
