@@ -27,16 +27,18 @@ const ChatListItem = ({ chat, selected }: ChatListItemProps) => {
           <ListItemText
             primary={chat.name}
             secondary={
-              <>
-                <Typography
-                  component="span"
-                  variant="body2"
-                  sx={{ color: 'text.primary', display: 'inline' }}
-                >
-                  {chat.latestMessage?.user.username}
-                </Typography>
-                {' ' + chat.latestMessage?.content}
-              </>
+              chat.latestMessage && (
+                <>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    sx={{ color: 'text.primary', display: 'inline' }}
+                  >
+                    {chat.latestMessage?.user.username}
+                  </Typography>
+                  {' ' + chat.latestMessage?.content}
+                </>
+              )
             }
           />
         </ListItemButton>
