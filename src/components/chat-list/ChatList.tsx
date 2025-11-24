@@ -7,6 +7,7 @@ import ChatListAdd from './chat-list-add/ChatListAdd';
 import { useGetChats } from '../../hooks/useGetChats';
 import { usePath } from '../../hooks/usePath';
 import { useMessageCreated } from '../../hooks/useMessageCreated';
+import { useChatCreated } from '../../hooks/useChatCreated';
 
 const ChatList = () => {
   const [chatListAddVisible, setChatListAddVisible] = useState(false);
@@ -17,6 +18,8 @@ const ChatList = () => {
   useMessageCreated({
     chatIds: data?.chats.map(chat => chat._id) || [],
   });
+
+  useChatCreated();
 
   useEffect(() => {
     const chatId = path.split('chats/')[1];
