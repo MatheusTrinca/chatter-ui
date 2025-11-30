@@ -4,9 +4,10 @@ import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import { ListItemButton } from '@mui/material';
+import { Box, ListItemButton } from '@mui/material';
 import router from '../../Routes';
 import type { Chat } from '../../../gql/graphql';
+import './ChatListItem.css';
 
 interface ChatListItemProps {
   chat: Chat;
@@ -28,7 +29,9 @@ const ChatListItem = ({ chat, selected }: ChatListItemProps) => {
             primary={chat.name}
             secondary={
               chat.latestMessage && (
-                <>
+                <Box
+                  sx={{ display: 'flex', flexDirection: 'row', gap: '0.5rem' }}
+                >
                   <Typography
                     component="span"
                     variant="body2"
@@ -36,8 +39,10 @@ const ChatListItem = ({ chat, selected }: ChatListItemProps) => {
                   >
                     {chat.latestMessage?.user.username}
                   </Typography>
-                  {' ' + chat.latestMessage?.content}
-                </>
+                  <div className="content">
+                    {' ' + chat.latestMessage?.content}
+                  </div>
+                </Box>
               )
             }
           />
