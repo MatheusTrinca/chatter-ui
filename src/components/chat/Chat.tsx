@@ -53,10 +53,10 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    if (messages?.messages && messages.messages.length <= PAGE_SIZE) {
-      setMessage('');
-      scrollToBottom();
-    }
+    // if (messages?.messages && messages.messages.length <= PAGE_SIZE) {
+    setMessage('');
+    scrollToBottom();
+    // }
   }, [location.pathname, messages]);
 
   return (
@@ -66,16 +66,16 @@ const Chat = () => {
         sx={{
           height: '70vh',
           overflow: 'auto',
-          '&::-webkit-scrollbar': {
-            display: 'none',
-          },
-          '-ms-overflow-style': 'none',
-          'scrollbar-width': 'none',
+          // '&::-webkit-scrollbar': {
+          //   display: 'none',
+          // },
+          // '-ms-overflow-style': 'none',
+          // 'scrollbar-width': 'none',
         }}
       >
         <InfiniteScroll
           pageStart={0}
-          isReverse={true}
+          isReverse
           loadMore={() =>
             fetchMore({ variables: { skip: messages?.messages?.length } })
           }
