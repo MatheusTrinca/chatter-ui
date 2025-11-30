@@ -15,6 +15,9 @@ import SendIcon from '@mui/icons-material/Send';
 import { useEffect, useRef, useState } from 'react';
 import { useCreateMessage } from '../../hooks/useCreateMessage';
 import { useGetMessages } from '../../hooks/useGetMessages';
+import { PAGE_SIZE } from '../../constants/page-size';
+import { useCountMessages } from '../../hooks/useCountMessages';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const Chat = () => {
   const params = useParams();
@@ -27,7 +30,16 @@ const Chat = () => {
 
   const [createMessage] = useCreateMessage();
   const { data } = useGetChat({ _id: chatId });
-  const { data: messages } = useGetMessages({ chatId });
+  const { data: messages, fetchMore } = useGetMessages({
+    chatId,
+    skip: 0,
+    limit: PAGE_SIZE,
+  });
+  const { messagesCount, countMessages } = useCountMessages(chatId);
+
+  useEffect(() => {
+    countMessages();
+  }, [countMessages]);
 
   const scrollToBottom = () => divRef.current?.scrollIntoView();
 
@@ -41,9 +53,11 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    setMessage('');
-    scrollToBottom();
-  }, [location, messages]);
+    if (messages?.messages && messages.messages.length <= PAGE_SIZE) {
+      setMessage('');
+      scrollToBottom();
+    }
+  }, [location.pathname, messages]);
 
   return (
     <Stack sx={{ height: '100%', justifyContent: 'space-between' }}>
@@ -59,33 +73,47 @@ const Chat = () => {
           'scrollbar-width': 'none',
         }}
       >
-        {messages &&
-          [...messages.messages]
-            .sort(
-              (a, b) =>
-                new Date(a.createdAt).getTime() -
-                new Date(b.createdAt).getTime()
-            )
-            .map(message => (
-              <Grid container alignItems="center" marginBottom="1rem">
-                <Grid size={{ xs: 2, lg: 1 }}>
-                  <Avatar src="" sx={{ width: 52, height: 52 }} />
-                </Grid>
-                <Grid size={{ xs: 10, lg: 11 }}>
-                  <Stack>
-                    <Paper sx={{ width: 'fit-content' }}>
-                      <Typography sx={{ padding: '0.9rem' }}>
-                        {message.content}
+        <InfiniteScroll
+          pageStart={0}
+          isReverse={true}
+          loadMore={() =>
+            fetchMore({ variables: { skip: messages?.messages?.length } })
+          }
+          hasMore={
+            messages && messagesCount
+              ? messages?.messages?.length < messagesCount
+              : false
+          }
+          useWindow={false}
+        >
+          {messages &&
+            [...messages.messages]
+              .sort(
+                (a, b) =>
+                  new Date(a.createdAt).getTime() -
+                  new Date(b.createdAt).getTime()
+              )
+              .map(message => (
+                <Grid container alignItems="center" marginBottom="1rem">
+                  <Grid size={{ xs: 2, lg: 1 }}>
+                    <Avatar src="" sx={{ width: 52, height: 52 }} />
+                  </Grid>
+                  <Grid size={{ xs: 10, lg: 11 }}>
+                    <Stack>
+                      <Paper sx={{ width: 'fit-content' }}>
+                        <Typography sx={{ padding: '0.9rem' }}>
+                          {message.content}
+                        </Typography>
+                      </Paper>
+                      <Typography variant="caption" marginLeft="0.25rem">
+                        {new Date(message.createdAt).toLocaleString()}
                       </Typography>
-                    </Paper>
-                    <Typography variant="caption" marginLeft="0.25rem">
-                      {new Date(message.createdAt).toLocaleString()}
-                    </Typography>
-                  </Stack>
+                    </Stack>
+                  </Grid>
                 </Grid>
-              </Grid>
-            ))}
-        <div ref={divRef}></div>
+              ))}
+          <div ref={divRef}></div>
+        </InfiniteScroll>
       </Box>
       <Paper
         sx={{

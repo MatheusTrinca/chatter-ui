@@ -19,9 +19,7 @@ const useCountMessages = (chatId: string) => {
       return;
     }
 
-    const { messages } = await res.json();
-
-    setMessagesCount(messages);
+    setMessagesCount(parseInt(await res.text()));
   }, [chatId]);
 
   return { countMessages, messagesCount };
