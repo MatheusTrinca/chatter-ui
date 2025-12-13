@@ -16,7 +16,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 type Documents = {
     "\n  fragment ChatFragment on Chat {\n    _id\n    name\n    userId\n    latestMessage {\n      ...MessageFragment\n    }\n  }\n": typeof types.ChatFragmentFragmentDoc,
     "\n  fragment MessageFragment on Message {\n    _id\n    content\n    createdAt\n    chatId\n    user {\n      ...UserFragment\n    }\n  }\n": typeof types.MessageFragmentFragmentDoc,
-    "\n  fragment UserFragment on User {\n    _id\n    username\n    email\n  }\n": typeof types.UserFragmentFragmentDoc,
+    "\n  fragment UserFragment on User {\n    _id\n    username\n    email\n    imageUrl\n  }\n": typeof types.UserFragmentFragmentDoc,
     "\n  mutation CreateChat($createChatInput: CreateChatInput!) {\n    createChat(createChatInput: $createChatInput) {\n      ...ChatFragment\n    }\n  }\n": typeof types.CreateChatDocument,
     "\n  mutation CreateMessage($createMessageInput: CreateMessageInput!) {\n    createMessage(createMessageInput: $createMessageInput) {\n      ...MessageFragment\n    }\n  }\n": typeof types.CreateMessageDocument,
     "\n  mutation CreateUser($createUserInput: CreateUserInput!) {\n    createUser(createUserInput: $createUserInput) {\n      ...UserFragment\n    }\n  }\n": typeof types.CreateUserDocument,
@@ -29,7 +29,7 @@ type Documents = {
 const documents: Documents = {
     "\n  fragment ChatFragment on Chat {\n    _id\n    name\n    userId\n    latestMessage {\n      ...MessageFragment\n    }\n  }\n": types.ChatFragmentFragmentDoc,
     "\n  fragment MessageFragment on Message {\n    _id\n    content\n    createdAt\n    chatId\n    user {\n      ...UserFragment\n    }\n  }\n": types.MessageFragmentFragmentDoc,
-    "\n  fragment UserFragment on User {\n    _id\n    username\n    email\n  }\n": types.UserFragmentFragmentDoc,
+    "\n  fragment UserFragment on User {\n    _id\n    username\n    email\n    imageUrl\n  }\n": types.UserFragmentFragmentDoc,
     "\n  mutation CreateChat($createChatInput: CreateChatInput!) {\n    createChat(createChatInput: $createChatInput) {\n      ...ChatFragment\n    }\n  }\n": types.CreateChatDocument,
     "\n  mutation CreateMessage($createMessageInput: CreateMessageInput!) {\n    createMessage(createMessageInput: $createMessageInput) {\n      ...MessageFragment\n    }\n  }\n": types.CreateMessageDocument,
     "\n  mutation CreateUser($createUserInput: CreateUserInput!) {\n    createUser(createUserInput: $createUserInput) {\n      ...UserFragment\n    }\n  }\n": types.CreateUserDocument,
@@ -65,7 +65,7 @@ export function graphql(source: "\n  fragment MessageFragment on Message {\n    
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment UserFragment on User {\n    _id\n    username\n    email\n  }\n"): (typeof documents)["\n  fragment UserFragment on User {\n    _id\n    username\n    email\n  }\n"];
+export function graphql(source: "\n  fragment UserFragment on User {\n    _id\n    username\n    email\n    imageUrl\n  }\n"): (typeof documents)["\n  fragment UserFragment on User {\n    _id\n    username\n    email\n    imageUrl\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
