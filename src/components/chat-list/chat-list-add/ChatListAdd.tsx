@@ -1,19 +1,5 @@
-import {
-  Box,
-  Button,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  InputBase,
-  Modal,
-  Paper,
-  Stack,
-  Switch,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Modal, Stack, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
 import { useCreateChat } from '../../../hooks/useCreateChat';
 import { UNKNOWN_ERROR_MESSAGE } from '../../../constants/errors';
 import router from '../../Routes';
@@ -35,12 +21,7 @@ const ChatListAdd = ({ open, handleClose }: ChatListAddProps) => {
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
+    <Modal open={open} onClose={onClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <Box
         sx={{
           position: 'absolute',
